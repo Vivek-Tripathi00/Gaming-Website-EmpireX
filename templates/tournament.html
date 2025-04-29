@@ -1,251 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Old+Standard+TT:wght@400;700&display=swap"
-        rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <style>
-        .login_container {
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        h2 {
-            font-family: 'Cinzel', serif;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            color: #e0c097;
-            letter-spacing: 2px;
-        }
-
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            background: #333333;
-            color: #ffffff;
-        }
-
-        button {
-            background: #e0c097;
-            color: #333333;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background 0.3s ease;
-        }
-
-        button:hover {
-            background: #d1b184;
-        }
-
-        p {
-            margin-top: 20px;
-            color: #e0c097;
-        }
-
-        a {
-            color: #e0c097;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        a:hover {
-            color: #ffffff;
-        }
-
-        .flash {
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-        }
-
-        .flash.success {
-            background-color: #28a745;
-            color: white;
-        }
-
-        .flash.error {
-            background-color: #dc3545;
-            color: white;
-        }
-
-        /* Media Queries */
-        @media (max-width: 600px) {
-            .container {
-                padding: 15px;
-                width: 80%;
-            }
-
-            h2 {
-                font-size: 1.5rem;
-            }
-
-            input {
-                font-size: 0.8rem;
-            }
-
-            button {
-                font-size: 0.8rem;
-            }
-        }
-    </style>
-
-
-
-
-
-    <!-- body tag all here -->
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            width: 100vw;
-
-            font-family: 'MedievalSharp', serif;
-
-
-            position: relative;
-            background: url('https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/c0236e8e-8042-4ee1-8dd6-c64bb219d5be/dgcq1c4-dfc66c31-b162-4d17-9cfc-5be81e3cf703.png/v1/fit/w_828,h_464,q_70,strp/you_came_home_too_late____by_bergionstyle_dgcq1c4-414w-2x.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MTA3NyIsInBhdGgiOiJcL2ZcL2MwMjM2ZThlLTgwNDItNGVlMS04ZGQ2LWM2NGJiMjE5ZDViZVwvZGdjcTFjNC1kZmM2NmMzMS1iMTYyLTRkMTctOWNmYy01YmU4MWUzY2Y3MDMucG5nIiwid2lkdGgiOiI8PTE5MjAifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.BxgiVMeLLYJ1QjZZ6AZXyMDITV9eFMQIH93Qyh8H1xA') no-repeat center center fixed;
-            background-size: cover;
-            background-attachment: fixed;
-            font-family: 'Old Standard TT', serif;
-            color: #ffffff;
-
-        }
-    </style>
-    <!-- body tag ends here -->
-
-
-
-    <!-- all border  code starts here -->
-    <style>
-        .border {
-            position: fixed;
-            background-size: cover;
-            z-index: 10;
-        }
-
-        .border.top {
-            top: 70px;
-            left: 0;
-            right: 0;
-            height: 50px;
-            background-image: url('static/border-top.png');
-        }
-
-        .border.bottom {
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 50px;
-            background-image: url('static/border-top.png');
-            /* Reused and flipped */
-            transform: rotate(180deg);
-        }
-
-        .border.left {
-            top: 0;
-            left: -8px;
-            bottom: 0;
-            width: 50px;
-            background-image: url('static/border-left.png');
-        }
-
-        .border.right {
-            top: 0;
-            right: 0;
-            bottom: 0;
-            width: 50px;
-            background-image: url('static/border-left.png');
-            /* Reused and flipped */
-            transform: rotate(180deg);
-        }
-    </style>
-    <!-- all border codes end here -->
+    <title>Tournament Page</title>
+   
 </head>
-
 <body>
-    <div class="border top"></div>
-    <div class="border bottom"></div>
-    <div class="border left"></div>
-    <div class="border right"></div>
-    <!-- border elements of all sides end shere -->
-
-
-
-    <!-- firre loading animation starts here  -->
-    <div class="fire-loader" id="loader">
-        <!-- pre loader fire animation  startsloader animation fire -->
-        <style>
-            .fire-loader {
-                width: 100%;
-                height: 100%;
-                background-image: url('static/preloader-bg.png');
-                /* Use your sprite sheet here */
-                background-size: 2300% 100%;
-                /* Adjust based on the number of frames (23 frames in this example) */
-                animation: fireAnimation 1.2s steps(23) 1;
-                /* Adjust the steps count to match the number of frames */
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 9999;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            @keyframes fireAnimation {
-                100% {
-                    background-position: 2300% 0;
-                    /* Adjust based on the number of frames */
-                }
-            }
-        </style>
-        <!-- pre loader fire animation ends here -->
-        <script>
-            window.addEventListener('load', function () {
-                const loader = document.getElementById('loader');
-                const content = document.getElementById('content');
-                setTimeout(function () {
-                    loader.style.display = 'none';
-                    content.style.display = 'block';
-                }, 1200); // Match this duration to the length of your animation
-            });
-        </script>
-    </div>
-    <!-- fire loading animation container ends -->
-
     <section>
         <nav class="navbar">
             <div class="navbar-container">
@@ -1034,7 +795,7 @@
                 <p id="error-message" style="color:red;display:none;">Invalid PIN. Please try again.</p>
             </div>
 
-            <style>4
+            <style>
                 /* Add your custom CSS for the modal */
                 .admin-login-banner {
                     position: fixed;
@@ -1050,7 +811,7 @@
                 }
 
                 .admin-login-content {
-                    background: #7a5cf0c3;
+                    background: white;
                     padding: 20px;
                     border-radius: 5px;
                     text-align: center;
@@ -1329,262 +1090,426 @@
 
 
     </section>
-    <section class="login_container">
-        <div class="container">
-            {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-            {% for category, message in messages %}
-            <div class="flash {{ category }}">{{ message }}</div>
-            {% endfor %}
-            {% endif %}
-            {% endwith %}
-
-            <h2>Login</h2>
-            <form action="{{ url_for('login') }}" method="POST">
-                <input type="email" name="email" placeholder="Email" required><br>
-                <input type="password" name="password" placeholder="Password" required><br>
-                <button type="submit">Login</button>
-            </form>
-            <p>Don't have an account? <a href="{{ url_for('signup') }}">Signup here</a></p>
+   <Section>
+    <div class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Join the Tournament</h1>
+            <button class="register-btn">Register Now</button>
+            <button class="admin-btn" onclick="window.location.href='/admin'">Go to Admin Panel</button>
         </div>
-        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    </div>
 
+    <script>
+        // Registration button event listener
+        document.querySelector('.register-btn').addEventListener('click', () => {
+            window.location.href = "/register"; // Redirect to registration page
+        });
+    </script>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 120%;
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #eee;
+        }
 
-    </section>
-    <footer class="royal-footer">
-        <div class="scrolling-banner">
-            <div class="scrolling-text">Victory Awaits Those Who Dare | Prepare for Battle | Rule the Kingdom</div>
-        </div>
-        <div class="footer-content">
-            <div class="footer-left">
-                <h3>Realm of Legends</h3>
-                <p>Forge your legacy in the heat of battle and rise to greatness.</p>
-                <ul class="social-icons">
-                    <li><a href="#"><ion-icon name="logo-facebook"></ion-icon></a></li>
-                    <li><a href="#"><ion-icon name="logo-twitter"></ion-icon></a></li>
-                    <li><a href="#"><ion-icon name="logo-instagram"></ion-icon></a></li>
-                    <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a></li>
-                </ul>
+        .hero {
+            height: 100vh;
+            background: url('/static/hero.webp') no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            transition: background 0.5s ease;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            transition: opacity 0.5s ease;
+        }
+
+        .hero-content {
+            color: #fff;
+            text-align: center;
+            z-index: 1;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 4em;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            animation: textGlow 1.5s infinite alternate;
+        }
+
+        .register-btn, .admin-btn {
+            padding: 15px 30px;
+            background-color: #ff0044;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .register-btn:hover, .admin-btn:hover {
+            background-color: #e6003b;
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes textGlow {
+            from { text-shadow: 0 0 5px rgba(255, 0, 0, 0.5); }
+            to { text-shadow: 0 0 20px rgba(255, 0, 0, 0.8); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .register-btn, .admin-btn {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+        }
+    </style>
+    <Section>
+        
+        <section class="card-section">
+            <div class="card">
+                <div class="imgBx">
+                    <img src="https://imgs.search.brave.com/6Tb2veyLnNj7pUT1NFlTHWYWydjUaAWcl342zWx_3Fc/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA0LzYzLzk4Lzk4/LzM2MF9GXzQ2Mzk4/OTg4Ml9wMEhWenlx/UG5TcXZKa1pxOXF5/UUo4aENkRmdneFFk/by5qcGc" alt="Game Tournament 1">
+                </div>
+                <div class="contentBx">
+                    <h3>Tournament <span>1</span></h3>
+                    <div class="price">$10.00</div>
+                    <button class="register-btn">Register Now</button>
+                </div>
             </div>
-            <div class="footer-right">
-                <h3>Subscribe to Our Newsletter</h3>
-                <form class="subscribe-form" action="{{ url_for('subscription') }}" method="POST">
-                    <input type="email" name="email" placeholder="Enter your email" required>
-                    <button type="submit">Subscribe</button>
-                </form>
-
-                <p>Email: warlord@ancientrealm.com</p>
-                <p>Phone: +123 456 7890</p>
+            <div class="card">
+                <div class="imgBx">
+                    <img src="https://imgs.search.brave.com/6Tb2veyLnNj7pUT1NFlTHWYWydjUaAWcl342zWx_3Fc/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA0LzYzLzk4Lzk4/LzM2MF9GXzQ2Mzk4/OTg4Ml9wMEhWenlx/UG5TcXZKa1pxOXF5/UUo4aENkRmdneFFk/by5qcGc" alt="Game Tournament 2">
+                </div>
+                <div class="contentBx">
+                    <h3>Tournament <span>2</span></h3>
+                    <div class="price">$10.00</div>
+                    <button class="register-btn">Register Now</button>
+                </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2024 Ancient Realm. All rights reserved.</p>
-        </div>
-
+            <div class="card">
+                <div class="imgBx">
+                    <img src="https://imgs.search.brave.com/6Tb2veyLnNj7pUT1NFlTHWYWydjUaAWcl342zWx_3Fc/rs:fit:500:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA0LzYzLzk4Lzk4/LzM2MF9GXzQ2Mzk4/OTg4Ml9wMEhWenlx/UG5TcXZKa1pxOXF5/UUo4aENkRmdneFFk/by5qcGc" alt="Game Tournament 3">
+                </div>
+                <div class="contentBx">
+                    <h3>Tournament <span>3</span></h3>
+                    <div class="price">$10.00</div>
+                    <button class="register-btn">Register Now</button>
+                </div>
+            </div>
+        </section>
+        
         <style>
-            @import url("https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap");
-
-            .royal-footer {
-                background-color: #2f1e1e;
-                color: #e0c097;
-                padding: 40px 20px;
-                text-align: center;
-
-                position: relative;
-                border-top: 2px solid #5b4535;
-            }
-
-            .scrolling-banner {
-                background-color: #3d2d2d;
-                padding: 10px 0;
-                overflow: hidden;
-            }
-
-            .scrolling-text {
-                white-space: nowrap;
-                display: inline-block;
-                animation: scrollText 15s linear infinite;
-                font-size: 18px;
-                font-weight: bold;
-                letter-spacing: 1px;
-            }
-
-            @keyframes scrollText {
-                from {
-                    transform: translateX(100%);
-                }
-
-                to {
-                    transform: translateX(-100%);
-                }
-            }
-
-            .footer-content {
+            /* Card Section Styling */
+            .card-section {
                 display: flex;
-                justify-content: space-around;
                 flex-wrap: wrap;
-                margin-bottom: 20px;
-                padding-top: 20px;
-                border-top: 1px solid #5b4535;
+                gap: 20px; /* Space between cards */
+                justify-content: center;
+                padding: 20px;
+                width: 100%;
+                max-width: 1200px;
+                margin: auto;
             }
-
-            .footer-left,
-            .footer-right {
-                flex: 1;
-                margin: 10px;
-                max-width: 400px;
+        
+            /* Card Styling */
+            .card {
+                background: #1e2a38;
+                color: #ffffff;
+                border-radius: 10px;
+                overflow: hidden;
+                width: 100%;
+                max-width: 300px;
+                position: relative;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+                transition: transform 0.3s ease;
             }
-
-            .footer-left h3,
-            .footer-right h3 {
-                font-size: 22px;
-                margin-bottom: 10px;
+        
+            .card:hover {
+                transform: scale(1.05);
             }
-
-            .footer-left p,
-            .footer-right p {
-                font-size: 16px;
-            }
-
-            .social-icons {
-                list-style: none;
-                padding: 0;
+        
+            /* Image Box Styling */
+            .imgBx {
+                width: 100%;
+                overflow: hidden;
+                height: 200px;
                 display: flex;
                 justify-content: center;
-                margin-top: 10px;
+                align-items: center;
             }
-
-            .social-icons li {
-                margin: 0 10px;
+        
+            .imgBx img {
+                width: 100%;
+                height: auto;
+                object-fit: cover;
+                transition: transform 0.3s ease;
             }
-
-            .social-icons li a {
-                color: #e0c097;
-                font-size: 24px;
-                transition: color 0.3s ease;
+        
+            .card:hover .imgBx img {
+                transform: scale(1.1);
             }
-
-            .social-icons li a:hover {
-                color: #ffda79;
+        
+            /* Content Box Styling */
+            .contentBx {
+                padding: 20px;
+                text-align: center;
             }
-
-            .subscribe-form {
-                display: flex;
-                margin-top: 10px;
+        
+            .contentBx h3 {
+                font-size: 1.5em;
+                color: #ff5733;
+                font-weight: 600;
+                text-transform: uppercase;
+                margin-bottom: 10px;
             }
-
-            .subscribe-form input[type="email"] {
-                padding: 10px;
-                background: white;
+        
+            .contentBx h3 span {
+                color: #ffffff;
+            }
+        
+            .contentBx .price {
+                font-size: 1.5em;
+                color: #ff5733;
+                margin-bottom: 20px;
+            }
+        
+            .contentBx .register-btn {
+                padding: 10px 20px;
+                background: #ff5733;
+                color: #ffffff;
                 border: none;
-                border-radius: 5px 0 0 5px;
-                flex: 1;
-
-            }
-
-            .subscribe-form button {
-                padding: 0px 20px;
-                border: none;
-
-                border-radius: 0 5px 5px 0;
-                background-color: #5b4535;
-                color: #fff;
+                border-radius: 25px;
                 cursor: pointer;
-
-                transition: background-color 0.3s ease;
-            }
-
-            .subscribe-form button:hover {
-                background-color: #3d2d2d;
-            }
-
-            .footer-bottom {
-                border-top: 1px solid #5b4535;
-                padding-top: 10px;
-                font-size: 14px;
+                text-transform: uppercase;
+                font-weight: bold;
                 letter-spacing: 1px;
+                transition: background-color 0.3s ease, transform 0.3s ease;
             }
-
-            /* Add smooth transitions to links */
-            a {
-                color: #f4f4f4;
-                text-decoration: none;
-                transition: color 0.3s;
+        
+            .contentBx .register-btn:hover {
+                background-color: #e74c3c;
+                transform: scale(1.05);
             }
-
-
-
-
-            a:hover {
-                color: #d4af37;
-            }
-
-            /* Animation for the footer */
-            .royal-footer {
-                animation: fadeInFooter 1s ease-in-out;
-            }
-
-            @keyframes fadeInFooter {
-                from {
-                    opacity: 0;
-                }
-
-                to {
-                    opacity: 1;
-                }
-            }
-
-            /* Responsive Design */
+        
+            /* Responsive Styling */
             @media (max-width: 768px) {
-                .footer-content {
-                    flex-direction: column;
+                .card-section {
+                    gap: 15px; /* Reduced space between cards */
                 }
-
-                .footer-left,
-                .footer-right {
+        
+                .card {
+                    max-width: 250px;
+                }
+        
+                .contentBx h3 {
+                    font-size: 1.2em;
+                }
+        
+                .contentBx .price {
+                    font-size: 1.2em;
+                }
+        
+                .contentBx .register-btn {
+                    padding: 8px 16px;
+                    font-size: 0.9em;
+                }
+            }
+        
+            @media (max-width: 480px) {
+                .card-section {
+                    gap: 10px; /* Further reduced space between cards */
+                }
+        
+                .card {
                     max-width: 100%;
                 }
+        
+                .contentBx h3 {
+                    font-size: 1em;
+                }
+        
+                .contentBx .price {
+                    font-size: 1em;
+                }
+        
+                .contentBx .register-btn {
+                    padding: 6px 12px;
+                    font-size: 0.8em;
+                }
             }
         </style>
+        <section class="registration-form-section">
+            <div class="form-container">
+                <h2>Tournament Registration</h2>
+                <form id="registration-form" action="/register" method="post">
+                    <!-- Full Name Input -->
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                    </div>
+                    
+                    <!-- Email Input -->
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+                    
+                    <!-- Game ID Input -->
+                    <div class="form-group">
+                        <label for="game_id">Game ID</label>
+                        <input type="text" id="game_id" name="game_id" placeholder="Enter your game ID" required>
+                    </div>
+                    
+                    <!-- Server Input -->
+                    <div class="form-group">
+                        <label for="server">Server</label>
+                        <input type="text" id="server" name="server" placeholder="Enter your server" required>
+                    </div>
+                    
+                    <!-- Tournament Number Select -->
+                    <div class="form-group">
+                        <label for="tournament_no">Tournament Number</label>
+                        <select id="tournament_no" name="tournament_no" required>
+                            <option value="1">Tournament 1</option>
+                            <option value="2">Tournament 2</option>
+                            <option value="3">Tournament 3</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Clan Name Input -->
+                    <div class="form-group">
+                        <label for="clan_name">Clan Name</label>
+                        <input type="text" id="clan_name" name="clan_name" placeholder="Enter your clan name" required>
+                    </div>
+                    
+                    <!-- Submit Button -->
+                    <button type="submit" class="submit-btn">Proceed to Payment</button>
+                </form>
+            </div>
+            <style>
+                /* Dark Theme Registration Form Section */
+                .registration-form-section {
+                    background-color: #1a1a1a; /* Dark background */
+                    padding: 50px 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    min-height: 100vh;
+                }
+                
+                .registration-form-section .form-container {
+                    background-color: #2b2b2b; /* Slightly lighter dark background */
+                    border-radius: 10px;
+                    padding: 40px;
+                    width: 100%;
+                    max-width: 550px;
+                    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4); /* Darker shadow for depth */
+                }
+                
+                .registration-form-section h2 {
+                    text-align: center;
+                    font-size: 2rem;
+                    color: #f0f0f0; /* Light gray text for heading */
+                    margin-bottom: 20px;
+                }
+                
+                .registration-form-section .form-group {
+                    margin-bottom: 20px;
+                }
+                
+                .registration-form-section .form-group label {
+                    font-size: 1rem;
+                    color: #f0f0f0; /* Light text for labels */
+                    display: block;
+                    margin-bottom: 8px;
+                }
+                
+                .registration-form-section .form-group input,
+                .registration-form-section .form-group select {
+                    width: 95%;
+                    padding: 12px;
+                    font-size: 1rem;
+                    border-radius: 5px;
+                    border: 1px solid #444; /* Dark border */
+                    background-color: #333; /* Dark input background */
+                    color: #fff; /* Light input text */
+                    outline: none;
+                    transition: border-color 0.3s;
+                }
+                
+                .registration-form-section .form-group input::placeholder {
+                    color: #bbb; /* Light gray placeholder text */
+                }
+                
+                .registration-form-section .form-group input:focus,
+                .registration-form-section .form-group select:focus {
+                    border-color: #007BFF; /* Blue highlight on focus */
+                }
+                
+                .registration-form-section button.submit-btn {
+                    width: 100%;
+                    background-color: #007BFF; /* Blue theme color */
+                    color: #fff;
+                    padding: 12px;
+                    font-size: 1.2rem;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    transition: background-color 0.3s;
+                }
+                
+                .registration-form-section button.submit-btn:hover {
+                    background-color: #0056b3; /* Darker blue on hover */
+                }
+                
+                /* Responsive Design for Dark Theme */
+                @media (max-width: 768px) {
+                    .registration-form-section .form-container {
+                        padding: 20px;
+                    }
+                
+                    .registration-form-section h2 {
+                        font-size: 1.5rem;
+                    }
+                }
+                  
+            </style>
+        </section>
+        
+        
+        
+        
+        
 
-        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-    </footer>
-    <!-- footer section code ends here -->
-
-
-
-    <a href="https://wa.me/7291037897" class="whatsapp-float" target="_blank">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-            <path
-                d="M380.9 97.1C339.4 55.6 282.3 32 221.1 32 100.2 32 4 127.6 4 248c0 43.2 11.7 85.1 34 122L0 512l146.1-38.1c35.3 19.5 74.7 29.8 114.9 29.8h.1c121.1 0 217.9-95.8 218.9-213.8.5-60.1-23.3-116.6-65.1-158.8zM221.1 438.5c-35 0-69.3-9.4-99.2-27.3l-7.1-4.2-87.1 22.7 23.2-84.6-4.4-7.2c-20.9-33.6-32-72.5-32-112.9C14.5 145.8 109.2 54.7 221.1 54.7c54.2 0 105.2 21.1 143.6 59.4 38.4 38.4 59.5 89.5 59 143.9-.9 109.7-91.3 197.1-202.6 180.5zM322.1 316c-5.5-2.7-32.5-16-37.5-17.8-5.1-1.8-8.8-2.7-12.5 2.7-3.6 5.5-14.3 17.8-17.5 21.4-3.2 3.6-6.4 4.1-11.8 1.4-5.5-2.7-23.1-8.5-44-27-16.3-14.6-27.3-32.7-30.5-38.2-3.2-5.5-.4-8.5 2.4-11.2 2.5-2.6 5.5-6.4 8.2-9.6 2.7-3.2 3.6-5.5 5.5-9.1 1.8-3.6 .9-6.8-.5-9.6-1.4-2.7-12.5-30-17.1-40.9-4.5-10.9-9.1-9.4-12.5-9.6-3.2-.2-6.8-.2-10.5-.2-3.6 0-9.6 1.4-14.6 6.8-5 5.5-19.1 18.6-19.1 45.4 0 26.8 19.5 52.7 22.2 56.4 2.7 3.6 38.4 58.7 93.1 82.3 13 5.6 23.2 8.9 31.1 11.4 13.1 4.1 25.1 3.5 34.6 2.1 10.5-1.6 32.5-13.2 37.1-26 4.6-12.8 4.6-23.7 3.2-26.1-1.4-2.3-5-3.7-10.5-6.4z" />
-        </svg>
-        <style>
-            /* Style for the floating WhatsApp button */
-            .whatsapp-float {
-                position: fixed;
-                width: 50px;
-                height: 50px;
-                bottom: 22px;
-                right: 10px;
-                color: white;
-                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
-                z-index: 1000000;
-                cursor: pointer;
-
-
-            }
-
-            .whatsapp-float svg {
-                width: 36px;
-                height: 36px;
-                color: white;
-                margin-top: 17px;
-                fill: white;
-            }
-        </style>
-    </a>
-
-</body>
-
+    </body>
 </html>

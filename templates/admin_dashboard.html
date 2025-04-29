@@ -244,6 +244,61 @@
                 <button type="submit">Send Announcement</button>
             </form>
         </div>
+        <div class="upload-container">
+            <h2>Change Hero Section Image</h2>
+            <form action="/upload-image" method="POST" enctype="multipart/form-data">
+                <input type="file" name="file" accept="image/*" required>
+                <button class="upload-btn" type="submit">Upload Image</button>
+            </form>
+            <style>
+         
+                .upload-container {
+                    margin: 20px;
+                }
+                .upload-btn {
+                    padding: 10px 20px;
+                    background-color: #28a745;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                }
+            </style>
+        </div>
+        <div class="container">
+            <h1>Tournament Registration</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Player ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Game ID</th>
+                        <th>Server</th>
+                        <th>Tournament No</th>
+                        <th>Clan Name</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for registration in registrations %}
+                    <tr>
+                        <td>{{ registration.player_id }}</td>
+                        <td>{{ registration.name }}</td>
+                        <td>{{ registration.email }}</td>
+                        <td>{{ registration.game_id }}</td>
+                        <td>{{ registration.server }}</td>
+                        <td>{{ registration.tournament_no }}</td>
+                        <td>{{ registration.clan_name }}</td>
+                        <td>
+                            <form action="{{ url_for('delete_registration', id=registration.id) }}" method="POST" style="display:inline;">
+                                <button type="submit" class="action-btn"><i class="fas fa-trash-alt"></i> Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
 </body>
 </html>

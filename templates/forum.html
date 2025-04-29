@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Battle Channels</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Roboto:wght@300;400&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Reset and Global Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            min-height: 100vh;
+            transition: background 0.3s ease;
+        }
+
+        /* Default Light Mode Background */
+        body {
+            /* background: linear-gradient(109.6deg, rgb(20, 30, 48) 11.2%, rgb(36, 59, 85) 91.1%); */
+            background-image: url(../static/fire_bg.gif);
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: #fff;
+        }
+
+        /* Dark Mode Background */
+        .dark-mode body {
+            background: #000;
+
+        }
+
+        /* Forum Container */
+        .forum-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 50px;
+            max-width: 1400px;
+            width: 100%;
+            margin: 38px auto;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        .forum-heading {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 3.5em;
+            font-family: 'Poppins', sans-serif;
+            color: #f5c518;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            animation: bounceIn 1s ease-in-out;
+        }
+
+        .region {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .region-title {
+            font-size: 1.8em;
+            font-family: 'Poppins', sans-serif;
+            color: #f5c518;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        /* Country Container */
+        .country {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .country:hover {
+            transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Country Information */
+        .country-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .country-flag {
+            width: 60px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 8px;
+        }
+
+        .country-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .country-name {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #f5c518;
+        }
+
+        .active-members {
+            font-size: 1em;
+            color: #e0e0e0;
+            margin-top: 8px;
+        }
+
+        /* Join Button */
+        .join-btn {
+            background: linear-gradient(45deg, #ff6f61, #d84315);
+            color: white;
+            padding: 12px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 111, 97, 0.4);
+            transition: all 0.4s ease;
+            text-transform: uppercase;
+        }
+
+        .join-btn:hover {
+            background: linear-gradient(45deg, #e64a19, #c62828);
+            box-shadow: 0 8px 20px rgba(230, 74, 25, 0.6);
+            transform: translateY(-3px);
+        }
+
+        /* Profile and Leaderboards */
+        .leaderboard,
+        .user-profile {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+            color: #f5c518;
+        }
+
+        .leaderboard h3,
+        .user-profile h3 {
+            font-size: 1.8em;
+            font-family: 'Poppins', sans-serif;
+            color: #f5c518;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .leaderboard-list,
+        .profile-details {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .leaderboard-list li,
+        .profile-details li {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        /* Footer for Community Features */
+        .community-features {
+            grid-column: 1 / -1;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .community-features h3 {
+            font-size: 2.5em;
+            color: #f5c518;
+            margin-bottom: 20px;
+        }
+
+        .community-stats,
+        .live-chat {
+            margin: 20px 0;
+            font-size: 1.2em;
+            color: #e0e0e0;
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #f5c518;
+            color: #121212;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .forum-container {
+                padding: 20px;
+
+            }
+
+            .forum-heading {
+                font-size: 2em;
+            }
+
+            .country {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .join-btn {
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            .region-title {
+                font-size: 1.5em;
+            }
+
+            .community-features h3 {
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .forum-heading {
+                font-size: 1.5em;
+            }
+
+            .region-title {
+                font-size: 1.2em;
+            }
+
+            .country-name {
+                font-size: 1.2em;
+            }
+
+            .active-members {
+                font-size: 0.9em;
+            }
+
+            .join-btn {
+                font-size: 1em;
+                padding: 10px 20px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes bounceIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <button class="dark-mode-toggle">Dark Mode</button>
+    <section>
+        <div class="forum-container">
+            <h1 class="forum-heading">Global Battle Channels</h1>
+
+            <!-- User Profile -->
+            <div class="user-profile">
+                <h3>Your Profile</h3>
+                <ul class="profile-details">
+                    <li>Username: <span>{{ current_user.username }}</span></li>
+                    <li>Region: <span>India</span></li>
+                    <li>Mail: <span>{{ current_user.email }}</span></li>
+                    <li>Achievements: <ul>
+                            <li>Top Contributor</li>
+                            <li>Chat Master</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Eastern Empire Region -->
+            <div class="region">
+                <h3 class="region-title">The Eastern Empire</h3>
+                <div class="country">
+                    <div class="country-info">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India Flag"
+                            class="country-flag">
+                        <div class="country-details">
+                            <span class="country-name">India</span>
+                            <span class="active-members">
+                                <div id="chat-users-count">Loading...</div>
+                            </span>
+                        </div>
+                    </div>
+                    <button class="join-btn"><a href="/community" class="sidebar-link"
+                            style="color: white; text-decoration: none;">Join Chat</a></button>
+                </div>
+                <div class="country">
+                    <div class="country-info">
+                        <img src="https://img.freepik.com/free-vector/illustration-china-flag_53876-27015.jpg?t=st=1726333180~exp=1726336780~hmac=f3dfa486968ce38e09f64502ee48c7a217436da7107f5ac9ac9b7d6dda53c89e&w=1060"
+                            alt="China Flag" class="country-flag">
+                        <div class="country-details">
+                            <span class="country-name">China</span>
+                            <span class="active-members">Active Members: 800</span>
+                        </div>
+                    </div>
+                    <button class="join-btn"><a href="/chats" class="sidebar-link"
+                            style="color: white; text-decoration: none;">Join Chat</a></button>
+                </div>
+            </div>
+
+            <!-- Western Alliance Region -->
+            <div class="region">
+                <h3 class="region-title">The Western Alliance</h3>
+                <div class="country">
+                    <div class="country-info">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg"
+                            alt="USA Flag" class="country-flag">
+                        <div class="country-details">
+                            <span class="country-name">USA</span>
+                            <span class="active-members">Active Members: 1,000</span>
+                        </div>
+                    </div>
+                    <button class="join-btn"><a href="/chats" class="sidebar-link"
+                            style="color: white; text-decoration: none;">Join Chat</a></button>
+                </div>
+                <div class="country">
+                    <div class="country-info">
+                        <img src="https://img.freepik.com/free-vector/illustration-uk-flag_53876-18166.jpg?t=st=1726333221~exp=1726336821~hmac=3f9ce8c180a58a2bad880da74526506f246e301ea9350800968bcdbba7d2c16d&w=1060"
+                            alt="UK Flag" class="country-flag">
+                        <div class="country-details">
+                            <span class="country-name">UK</span>
+                            <span class="active-members">Active Members: 600</span>
+                        </div>
+                    </div>
+                    <button class="join-btn"><a href="/chats" class="sidebar-link"
+                            style="color: white; text-decoration: none;">Join Chat</a></button>
+                </div>
+            </div>
+
+
+
+            <!-- Leaderboards -->
+            <div class="leaderboard">
+                <h3>Top Leaders</h3>
+                <ul class="leaderboard-list">
+                    <li>1. <span>{{ current_user.username }}</span> - <span>1,000 Points</span></li>
+                    <li>2. <span>Shivam</span> - <span>950 Points</span></li>
+                    <li>3. <span>MasterMind</span> - <span>900 Points</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Modal -->
+    <div id="customAlert" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p id="alertMessage"></p>
+            <button id="alertOkBtn">OK</button>
+        </div>
+    </div>
+
+    <style>
+        /* The Modal (background) */
+        .modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            /* Stay in place */
+            z-index: 1;
+            /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%;
+            /* Full width */
+            height: 100%;
+            /* Full height */
+            overflow: auto;
+            /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4);
+            /* Black w/ opacity */
+            padding-top: 60px;
+            /* Location of the box */
+        }
+
+        /* Modal Content */
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            /* Center the box */
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            /* Width of the modal */
+            border-radius: 10px;
+            /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            /* Shadow effect */
+        }
+
+        /* The Close Button */
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Modal Text */
+        #alertMessage {
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* OK Button */
+        #alertOkBtn {
+            background-color: #007bff;
+            /* Button color */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        #alertOkBtn:hover {
+            background-color: #0056b3;
+            /* Darker color on hover */
+        }
+    </style>
+
+    <!-- END The Modal -->
+
+    <script>
+        // Dark Mode Toggle Script
+        document.querySelector('.dark-mode-toggle').addEventListener('click', function () {
+            document.body.classList.toggle('dark-mode');
+        });
+    </script>
+    <script>
+        function updateChatUsersCount() {
+            fetch('/chat_users')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('chat-users-count').innerText = `${data.count} users online`;
+                })
+                .catch(error => {
+                    console.error('Error fetching chat users count:', error);
+                    document.getElementById('chat-users-count').innerText = 'Error loading count';
+                });
+        }
+
+        // Update the user count every 10 seconds
+        updateChatUsersCount();
+        setInterval(updateChatUsersCount, 10000);
+    </script>
+
+
+
+    <!-- JavaScript Functionality -->
+    <script>
+        // Get the modal element and its components
+        const modal = document.getElementById('customAlert');
+        const closeModal = document.querySelector('.close');
+        const alertMessage = document.getElementById('alertMessage');
+        const okButton = document.getElementById('alertOkBtn');
+
+        // Function to show the custom alert
+        function showCustomAlert(message, callback) {
+            alertMessage.textContent = message;
+            modal.style.display = 'block';
+
+            // Set up the callback to be executed when OK is clicked
+            okButton.onclick = function () {
+                modal.style.display = 'none';
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            };
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        closeModal.onclick = function () {
+            modal.style.display = 'none';
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Add event listeners to buttons
+        document.querySelectorAll('.join-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                const country = this.previousElementSibling.querySelector('.country-name').textContent;
+                showCustomAlert('You have pledged allegiance to ' + country + ' warriors!', function () {
+                    // Callback function after the modal is closed
+                    // You can put navigation logic or other actions here
+                    // Example: window.location.href = 'another-page.html';
+                    console.log('Alert closed, you can now navigate or perform other actions.');
+                });
+            });
+        });
+
+        const connectedUsers = document.getElementById('connected-users');
+
+        // Emit event when the user connects
+        socket.emit('userConnected');
+
+        // Emit event when the user disconnects
+        window.addEventListener('beforeunload', () => {
+            socket.emit('userDisconnected');
+        });
+    </script>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+</body>
+
+</html>

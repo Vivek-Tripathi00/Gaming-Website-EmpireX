@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    
     <meta charset="UTF-8">
     <title>Ancient War Game</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -160,7 +160,7 @@
             {% endif %}
             {% endwith %}
             <div class="navbar-container">
-                <a href="{{ url_for('index') }}" class="navbar-logo">AncientWar</a>
+                <a href="{{ url_for('index') }}" class="navbar-logo">EmpireX</a>
                 <div class="search-bar">
                     <input type="search" placeholder="Search...">
                     <button type="button"><span class="material-icons-round">search</span></button>
@@ -168,23 +168,24 @@
 
 
                 <div class="visible_all">
-                    <div class="nav-icon">
-                        <a href="{{ url_for('contact') }}" class="nav-link">
-                            <span class="material-icons-round">email</span>
-                        </a>
-                    </div>
+                   
                     <div class="nav-icon" id="user-dropdown">
                         <span class="material-icons-round">person</span>
                         <div class="dropdown-content">
                             {% if current_user.is_authenticated %}
-                            <a href="#profile">{{ current_user.username }}</a>
-                            <a href="{{ url_for('logout') }}">Logout</a>
+                            <div class="profile-card">
+                                <img src="https://imgs.search.brave.com/ZibL0FwNTR84RceDJlk7NqPdoGyBfWcNf8gZljESdBc/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA2LzI0Lzk3LzY0/LzM2MF9GXzYyNDk3/NjQ2Nl9YY2FlREti/Q3JSZmtCcExodW9W/QUhCOFFOdThPNFAy/WS5qcGc"
+                                    alt="Avatar" class="avatar">
+                                <p class="username">{{ current_user.username }}</p>
+                                <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+                            </div>
                             {% else %}
                             <a href="{{ url_for('login') }}">Login</a>
                             <a href="{{ url_for('signup') }}">Signup</a>
                             {% endif %}
                         </div>
                     </div>
+
                     <div class="nav-icon">
 
                         <a href="{{ url_for('product') }}" class="sidebar-link"> <span
@@ -194,10 +195,6 @@
                         <span id="menu_bar_right" class="material-icons-round menu_bar">apps</span>
                     </div>
 
-                    <div class="evnt_icon">
-                        <i class="material-icons-round event-icon menu_bar" onclick="openScroll()">chat</i>
-
-                    </div>
                     <div class="sidebar-toggle" onclick="toggleSidebar()">
                         <span class="material-icons-round menu_bar" id="menu_bar_icon">menu</span>
                     </div>
@@ -214,11 +211,9 @@
 
             <ul class="sidebar-menu">
                 <li><a href="{{ url_for('index') }}" class="sidebar-link">Home</a></li>
-                <li><a href="{{ url_for('games') }}" class="sidebar-link">Games</a></li>
-                <li><a href="{{ url_for('about') }}" class="sidebar-link">About</a></li>
-                <li><a href="{{ url_for('about') }}" class="sidebar-link">Blog</a></li>
+                <li><a href="{{ url_for('tournament') }}" class="sidebar-link">Tournament</a></li>
                 {% if current_user.is_authenticated %}
-                <li><a href="/community" class="sidebar-link">Community</a></li>
+                <li><a href="/forum" class="sidebar-link">Community</a></li>
                 <li><a href="/leader" class="sidebar-link">Leader Board</a></li>
                 {% else %}
                 <li><a href="javascript:void(0);" onclick="showLoginBanner();" class="sidebar-link">Community</a>
@@ -298,7 +293,7 @@
         </script>
         <style>
             /**navbar slidebar left and right code start here **/
-
+        
 
             .navbar {
                 background-image: url('https://imgs.search.brave.com/QqDAX68QaImCAPCagL5g9V30_4SXgzWqrfrtmnQ98Do/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS50ZW5vci5jb20v/RXk5LVFKVThmcGdB/QUFBTS9hdGUlQzUl/OUYuZ2lm.gif');
@@ -746,6 +741,100 @@
             @media (max-width: 600px) {
                 .dropdown-content {
                     min-width: 120px;
+                }
+            }
+
+            /* Style for nav-icon (person icon) */
+            .nav-icon {
+                position: relative;
+                display: inline-block;
+                cursor: pointer;
+            }
+
+            .nav-icon:hover {
+                color: #d4af37;
+                /* Gold color on hover */
+            }
+
+            /* Style for the dropdown content */
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                right: -100px;
+                /* Align to the right for better UX */
+                background-color: #333;
+                color: white;
+                width: 220px;
+                box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+                z-index: 1;
+                border-radius: 10px;
+                padding: 15px;
+            }
+
+            /* Profile card styling inside the dropdown */
+            .profile-card {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                background-color: #444;
+                border-radius: 8px;
+                padding: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            }
+
+            /* Avatar image styling */
+            .profile-card .avatar {
+
+                width: 60px;
+                height: 60px;
+                border-radius: 50%;
+                margin-bottom: 10px;
+                border: 2px solid #d4af37;
+                /* Gold border for the avatar */
+            }
+
+            /* Username styling */
+            .profile-card .username {
+                font-size: 18px;
+                font-weight: bold;
+                color: #d4af37;
+                /* Match the gold theme */
+                margin-bottom: 10px;
+            }
+
+            /* Logout button styling */
+            .profile-card .logout-btn {
+                background-color: #d9534f;
+                /* Red logout button */
+                color: white;
+                padding: 8px 16px;
+                text-decoration: none;
+                border-radius: 5px;
+                width: 100%;
+                text-align: center;
+                transition: background-color 0.3s ease;
+            }
+
+            .profile-card .logout-btn:hover {
+                background-color: #c9302c;
+                /* Darker red on hover */
+            }
+
+            /* Show the dropdown content on hover */
+            .nav-icon:hover .dropdown-content {
+                display: block;
+            }
+
+            /* Optional: Style for mobile responsiveness */
+            @media (max-width: 600px) {
+                .dropdown-content {
+                    width: 180px;
+                }
+
+                .profile-card .avatar {
+                    width: 50px;
+                    height: 50px;
                 }
             }
         </style>
@@ -1242,22 +1331,22 @@
     </section>
     <!-- navbar secruin ends here -->
     <div class="content">
-       
+
         <!-- hero sections starts here -->
         <section class="hero">
             <div class="hero-bg"></div>
-            
+
             <div class="smoke-overlay"></div> <!-- Smoke overlay -->
             <div class="hero-content">
-                
-                
-                <h1>Godlike</h1>
+
+
+                <h1>March of Empire</h1>
                 <p>Enter the world of epic adventures and endless possibilities. Unleash your potential and become a
                     true
                     legend.</p>
                 <div class="hero-buttons">
-                    <a href="#" class="btn">Play Now</a>
-                    <a href="#" class="btn">Learn More</a>
+                    <a href="https://www.microsoft.com/en-us/p/march-of-empires-war-of-lords/9nblggh33zdv?activetab=pivot:overviewtab" class="btn">Play Now</a>
+                    <a href="https://www.microsoft.com/en-us/p/march-of-empires-war-of-lords/9nblggh33zdv?activetab=pivot:overviewtab" class="btn">Learn More</a>
                 </div>
             </div>
 
@@ -1412,13 +1501,13 @@
 
                 <div class="image_slider_cards">
                     <label class="image_slider_card" for="item-1" id="song-1">
-                        <img src="{{ url_for('static', filename='image-1.jpg') }}" alt="Image 1">
+                        <img src="https://images2.alphacoders.com/255/255070.jpg" alt="Image 1">
                     </label>
                     <label class="image_slider_card" for="item-2" id="song-2">
-                        <img src="{{ url_for('static', filename='image-2.jpg') }}" alt="Image 2">
+                        <img src="https://external-preview.redd.it/LDobVc8l5SSBhiw_wq0VoqdqX-N_WpRuDVRJRc80vvI.png?width=640&crop=smart&format=pjpg&auto=webp&s=32650ddb96e75935f0d0656d6aa997c727c2418b" alt="Image 2">
                     </label>
                     <label class="image_slider_card" for="item-3" id="song-3">
-                        <img src="{{ url_for('static', filename='image-1.jpg') }}" alt="Image 3">
+                        <img src="https://images3.alphacoders.com/909/909217.jpg" alt="Image 3">
                     </label>
                 </div>
             </div>
@@ -1669,18 +1758,17 @@
         <section id="about-me" class="about-me-section">
             <div class="about-me-content">
                 <div class="about-me-text">
-                    <h1>About Me</h1>
-                    <h2>Frontend Developer</h2>
+                    <h1>About the Game</h1>
+                    <h2>March of Empire</h2>
                     <p>
-                        I'm Vivek Tripathi, a dedicated college student and aspiring developer with a passion for
-                        technology. As a full-stack, web, app, and software developer, I specialize in creating
-                        innovative solutions that combine creativity with advanced technology. Proficient in the MERN
-                        stack, I've developed dynamic web applications and intuitive mobile apps, always striving to
-                        enhance user experiences. My solid grasp of software engineering principles allows me to design
-                        scalable and robust software solutions. I'm committed to continuous learning and delivering
-                        impactful projects that make a difference.
-                    </p>
-                    <a href="#" class="read-more-btn">Read More</a>
+                     
+                        March of Empires is a massively multiplayer online strategy game developed by Gameloft. Set in a medieval fantasy world, it invites players to build and expand their own empire while engaging in strategic battles and alliances.
+
+                       In the game, players begin by establishing their own kingdom, which they must develop through resource management, construction, and military strategies. The game features a rich variety of building options, including barracks, farms, and research facilities, each crucial for strengthening your empire and increasing your power.
+                       One of the core elements of March of Empires is its combat system. Players can recruit and train various units, including infantry, cavalry, and siege machines, to engage in large-scale battles. The strategic aspect comes into play as players must carefully plan their attacks and defenses, considering the strengths and weaknesses of their troops and those of their opponents.
+
+          </p>
+                    <a href="https://www.microsoft.com/en-us/p/march-of-empires-war-of-lords/9nblggh33zdv?activetab=pivot:overviewtab" class="read-more-btn">Read More</a>
                 </div>
                 <div class="about-me-image moving-border">
                     <img id="img_bg" src="{{ url_for('static', filename='kingdom.jpg') }}" alt="Profile Picture">
@@ -1787,7 +1875,7 @@
 
                 }
 
-                .about-me-image .moving-border img  {
+                .about-me-image .moving-border img {
                     width: 70%;
                     height: auto;
                     border-radius: 35px;
@@ -1976,8 +2064,8 @@
                     <p id="countdown-timer"></p>
                 </div>
                 <div class="tournament-buttons">
-                    <a href="#register" class="btn">Register Now</a>
-                    <a href="#schedule" class="btn">View Schedule</a>
+                    <a href="{{ url_for('tournament') }}"  class="btn">Register Now</a>
+                  
                 </div>
             </div>
             <style>
@@ -2139,207 +2227,262 @@
         <section id="game_info_section" class="game-info-section">
             <div class="game-intro">
                 <h2>About This Game</h2>
-                <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_kingdom.png?t=1724742169" alt="Game Kingdom" class="game-intro-image">
+                <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_kingdom.png?t=1724742169"
+                    alt="Game Kingdom" class="game-intro-image">
                 <p>
-                    Step into a medieval world of epic battles and strategic warfare. Fortify your castle, command powerful armies, and conquer rivals to claim your throne. Are you ready to unite the land under your banner or watch it crumble?
+                    Step into a medieval world of epic battles and strategic warfare. Fortify your castle, command
+                    powerful armies, and conquer rivals to claim your throne. Are you ready to unite the land under your
+                    banner or watch it crumble?
                 </p>
             </div>
-        
+
             <div class="game-features">
                 <div class="game-feature-card">
-                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_faction.png?t=1724742169" alt="Faction" class="feature-image">
+                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_faction.png?t=1724742169"
+                        alt="Faction" class="feature-image">
                     <h3>Choose Your Faction</h3>
-                    <p>Select from unique factions like Shogun, Highland King, Northern Tsar, or Desert Sultan, each with its own strengths and playstyles.</p>
+                    <p>Select from unique factions like Shogun, Highland King, Northern Tsar, or Desert Sultan, each
+                        with its own strengths and playstyles.</p>
                 </div>
-        
+
                 <div class="game-feature-card">
-                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_domination.png?t=1724742169" alt="Domination" class="feature-image">
+                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_domination.png?t=1724742169"
+                        alt="Domination" class="feature-image">
                     <h3>Dominate and Conquer</h3>
-                    <p>Expand your influence, unlock powerful bonuses, and fortify your defenses. Rise to become the High King through strategic conquests!</p>
+                    <p>Expand your influence, unlock powerful bonuses, and fortify your defenses. Rise to become the
+                        High King through strategic conquests!</p>
                 </div>
-        
+
                 <div class="game-feature-card">
-                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_forge.png?t=1724742169" alt="Forge" class="feature-image">
+                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_forge.png?t=1724742169"
+                        alt="Forge" class="feature-image">
                     <h3>Forge Your Legacy</h3>
-                    <p>Assemble a unique Champion, equip them with legendary gear, and lead heroic quests to build a prosperous kingdom.</p>
+                    <p>Assemble a unique Champion, equip them with legendary gear, and lead heroic quests to build a
+                        prosperous kingdom.</p>
                 </div>
-        
+
                 <div class="game-feature-card">
-                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_nation.png?t=1724742169" alt="Nation" class="feature-image">
+                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_nation.png?t=1724742169"
+                        alt="Nation" class="feature-image">
                     <h3>Build Your Nation</h3>
-                    <p>Develop regional structures, create thriving Trade Centres, and manage treasure Stockpiles to ensure your nation’s prosperity.</p>
+                    <p>Develop regional structures, create thriving Trade Centres, and manage treasure Stockpiles to
+                        ensure your nation’s prosperity.</p>
                 </div>
-        
+
                 <div class="game-feature-card">
-                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_warfire.png?t=1724742169" alt="Warfare" class="feature-image">
+                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_warfire.png?t=1724742169"
+                        alt="Warfare" class="feature-image">
                     <h3>Strategic Warfare</h3>
-                    <p>Employ tactical formations and adapt to seasonal changes to outmaneuver your opponents and secure victory.</p>
+                    <p>Employ tactical formations and adapt to seasonal changes to outmaneuver your opponents and secure
+                        victory.</p>
                 </div>
-        
+
                 <div class="game-feature-card">
-                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_command.png?t=1724742169" alt="Command" class="feature-image">
+                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_command.png?t=1724742169"
+                        alt="Command" class="feature-image">
                     <h3>Command Your Alliance</h3>
-                    <p>Organize alliances, engage in diplomacy, and strategize with other players to achieve your goals and rise to power.</p>
+                    <p>Organize alliances, engage in diplomacy, and strategize with other players to achieve your goals
+                        and rise to power.</p>
                 </div>
-        
+
                 <div class="game-feature-card">
-                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_claim.png?t=1724742169" alt="Claim" class="feature-image">
+                    <img src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/702320/extras/MoE_Steam23_claim.png?t=1724742169"
+                        alt="Claim" class="feature-image">
                     <h3>Claim the Thrones</h3>
-                    <p>Capture and control key castles, each providing unique advantages. Engage in diplomacy and policy-making to shape the realm.</p>
+                    <p>Capture and control key castles, each providing unique advantages. Engage in diplomacy and
+                        policy-making to shape the realm.</p>
                 </div>
             </div>
-        
+
             <div class="game-cta">
                 <p>Only one alliance can hold the ultimate power. Download now and start your journey to the throne!</p>
-                <a href="#" class="cta-button">Download Now</a>
+                <a href="https://www.microsoft.com/en-us/p/march-of-empires-war-of-lords/9nblggh33zdv?activetab=pivot:overviewtab" class="cta-button">Download Now</a>
             </div>
-             
-        <style>
-         
-        
-            section#game_info_section {
-                background: rgba(20, 20, 20, 0.3); /* Dark semi-transparent background */
-                color: #f4f4f4;
-                padding: 2rem;
-                border-radius: 12px;
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-                max-width: 1200px;
-                margin: auto;
-              
-                position: relative;
-                z-index: 1;
-            }
-        
-            .game-intro {
-                text-align: center;
-                margin-bottom: 2rem;
-            }
-        
-            .game-intro-image {
-                max-width: 100%;
-                height: auto;
-                border-radius: 12px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-                animation: fadeIn 1s ease-out;
-            }
-        
-            .game-intro p {
-                font-size: 1.1rem;
-                line-height: 1.6;
-                margin-top: 1rem;
-                max-width: 800px;
-                margin-left: auto;
-                margin-right: auto;
-                animation: slideIn 1s ease-out;
-            }
-        
-            .game-features {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 1.5rem;
-                justify-content: center;
-            }
-        
-            .game-feature-card {
-                background: rgba(30, 30, 30, 0.6); /* Dark semi-transparent card background */
-                border-radius: 12px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-                overflow: hidden;
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                width: 100%;
-                max-width: 300px;
-                text-align: center;
-                padding: 1rem;
-                animation: zoomIn 1s ease-out;
-            }
-        
-            .game-feature-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-            }
-        
-            .feature-image {
-                width: 100%;
-                height: auto;
-                border-bottom: 2px solid #f0c75e; /* Gold accent color */
-                border-radius: 8px;
-                animation: fadeIn 1s ease-out;
-            }
-        
-            .game-feature-card h3 {
-                font-size: 1.25rem;
-                color: #f0c75e; /* Gold accent color */
-                margin: 1rem 0;
-                animation: fadeInUp 1s ease-out;
-            }
-        
-            .game-feature-card p {
-                font-size: 1rem;
-                line-height: 1.5;
-                color: #d1d1d1; /* Light grey text color */
-                animation: fadeInUp 1s ease-out;
-            }
-        
-            .game-cta {
-                text-align: center;
-                margin-top: 3rem;
-                animation: fadeInUp 1s ease-out;
-            }
-        
-            .game-cta p {
-                font-size: 1.2rem;
-                margin-bottom: 1rem;
-            }
-        
-            .cta-button {
-                background-color: #f0c75e; /* Gold accent color */
-                color: #fff;
-                padding: 1rem 2rem;
-                text-decoration: none;
-                border-radius: 8px;
-                font-size: 1.25rem;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-                transition: background-color 0.3s ease, transform 0.3s ease;
-                animation: bounceIn 1s ease-out;
-            }
-        
-            .cta-button:hover {
-                background-color: #d9a14e;
-                color:white; /* Darker gold on hover */
-                transform: translateY(-3px);
-            }
-        
-            @keyframes fadeIn {
-                from { opacity: 0; }
-                to { opacity: 1; }
-            }
-        
-            @keyframes slideIn {
-                from { transform: translateY(20px); opacity: 0; }
-                to { transform: translateY(0); opacity: 1; }
-            }
-        
-            @keyframes zoomIn {
-                from { transform: scale(0.9); opacity: 0; }
-                to { transform: scale(1); opacity: 1; }
-            }
-        
-            @keyframes fadeInUp {
-                from { opacity: 0; transform: translateY(20px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-        
-            @keyframes bounceIn {
-                from { transform: scale(0.9); opacity: 0; }
-                to { transform: scale(1); opacity: 1; }
-            }
-        </style>
+
+            <style>
+                section#game_info_section {
+                    background: rgba(20, 20, 20, 0.3);
+                    /* Dark semi-transparent background */
+                    color: #f4f4f4;
+                    padding: 2rem;
+                    border-radius: 12px;
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+                    max-width: 1200px;
+                    margin: auto;
+
+                    position: relative;
+                    z-index: 1;
+                }
+
+                .game-intro {
+                    text-align: center;
+                    margin-bottom: 2rem;
+                }
+
+                .game-intro-image {
+                    max-width: 100%;
+                    height: auto;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+                    animation: fadeIn 1s ease-out;
+                }
+
+                .game-intro p {
+                    font-size: 1.1rem;
+                    line-height: 1.6;
+                    margin-top: 1rem;
+                    max-width: 800px;
+                    margin-left: auto;
+                    margin-right: auto;
+                    animation: slideIn 1s ease-out;
+                }
+
+                .game-features {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 1.5rem;
+                    justify-content: center;
+                }
+
+                .game-feature-card {
+                    background: rgba(30, 30, 30, 0.6);
+                    /* Dark semi-transparent card background */
+                    border-radius: 12px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                    overflow: hidden;
+                    transition: transform 0.3s ease, box-shadow 0.3s ease;
+                    width: 100%;
+                    max-width: 300px;
+                    text-align: center;
+                    padding: 1rem;
+                    animation: zoomIn 1s ease-out;
+                }
+
+                .game-feature-card:hover {
+                    transform: translateY(-5px);
+                    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+                }
+
+                .feature-image {
+                    width: 100%;
+                    height: auto;
+                    border-bottom: 2px solid #f0c75e;
+                    /* Gold accent color */
+                    border-radius: 8px;
+                    animation: fadeIn 1s ease-out;
+                }
+
+                .game-feature-card h3 {
+                    font-size: 1.25rem;
+                    color: #f0c75e;
+                    /* Gold accent color */
+                    margin: 1rem 0;
+                    animation: fadeInUp 1s ease-out;
+                }
+
+                .game-feature-card p {
+                    font-size: 1rem;
+                    line-height: 1.5;
+                    color: #d1d1d1;
+                    /* Light grey text color */
+                    animation: fadeInUp 1s ease-out;
+                }
+
+                .game-cta {
+                    text-align: center;
+                    margin-top: 3rem;
+                    animation: fadeInUp 1s ease-out;
+                }
+
+                .game-cta p {
+                    font-size: 1.2rem;
+                    margin-bottom: 1rem;
+                }
+
+                .cta-button {
+                    background-color: #f0c75e;
+                    /* Gold accent color */
+                    color: #fff;
+                    padding: 1rem 2rem;
+                    text-decoration: none;
+                    border-radius: 8px;
+                    font-size: 1.25rem;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+                    transition: background-color 0.3s ease, transform 0.3s ease;
+                    animation: bounceIn 1s ease-out;
+                }
+
+                .cta-button:hover {
+                    background-color: #d9a14e;
+                    color: white;
+                    /* Darker gold on hover */
+                    transform: translateY(-3px);
+                }
+
+                @keyframes fadeIn {
+                    from {
+                        opacity: 0;
+                    }
+
+                    to {
+                        opacity: 1;
+                    }
+                }
+
+                @keyframes slideIn {
+                    from {
+                        transform: translateY(20px);
+                        opacity: 0;
+                    }
+
+                    to {
+                        transform: translateY(0);
+                        opacity: 1;
+                    }
+                }
+
+                @keyframes zoomIn {
+                    from {
+                        transform: scale(0.9);
+                        opacity: 0;
+                    }
+
+                    to {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                }
+
+                @keyframes fadeInUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+
+                @keyframes bounceIn {
+                    from {
+                        transform: scale(0.9);
+                        opacity: 0;
+                    }
+
+                    to {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                }
+            </style>
         </section>
         <section id="system_requirements_section" class="system-requirements-section">
             <div class="section-header">
                 <h2>System Requirements</h2>
             </div>
-            
+
             <div class="requirements-container">
                 <div class="requirements-card">
                     <h3>Minimum Requirements</h3>
@@ -2355,34 +2498,34 @@
                         <li><strong>Additional Notes:</strong> N/A</li>
                     </ul>
                 </div>
-             
+
             </div>
             <style>
-           
-                #system_requirements_section{
-                    
-                }
-               
-                
+                #system_requirements_section {}
+
+
                 .section-header {
                     text-align: center;
                     margin-bottom: 3rem;
                     position: relative;
                 }
-                
+
                 .section-header h2 {
                     font-size: 1.5rem;
-                    color: #c49c48; /* Gold color */
+                    color: #c49c48;
+                    /* Gold color */
                     margin: 0;
-                    
-                    font-family: 'Cinzel', serif; /* Classic Roman font */
+
+                    font-family: 'Cinzel', serif;
+                    /* Classic Roman font */
                     font-weight: 700;
                     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
                     position: relative;
                     z-index: 1;
                 }
-                
-                .section-header::before, .section-header::after {
+
+                .section-header::before,
+                .section-header::after {
                     content: '';
                     position: absolute;
                     top: 50%;
@@ -2391,53 +2534,54 @@
                     background: #c49c48;
                     z-index: 0;
                 }
-                
+
                 .section-header::before {
                     left: 0;
                 }
-                
+
                 .section-header::after {
                     right: 0;
                 }
-                
+
                 .requirements-container {
                     display: flex;
                     flex-wrap: wrap;
                     gap: 2rem;
                     justify-content: center;
                 }
-                
+
                 .requirements-card {
                     /* Dark background with opacity */
                     border-radius: 10px;
-                    
+
                     width: 100vw;
-                    
+
                     max-width: 500px;
                     transition: transform 0.4s ease, box-shadow 0.4s ease;
-                  /* Gold border for cards */
+                    /* Gold border for cards */
                     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
                 }
-                
+
                 .requirements-card:hover {
                     transform: translateY(-10px);
                     box-shadow: 0 15px 30px rgba(0, 0, 0, 0.7);
                 }
-                
+
                 .requirements-card h3 {
                     font-size: 1.2rem;
-                    color: #c49c48; /* Gold color */
+                    color: #c49c48;
+                    /* Gold color */
                     margin-bottom: 1.5rem;
                     font-family: 'Cinzel', serif;
                     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
                 }
-                
+
                 .requirements-card ul {
                     list-style: none;
                     padding: 0;
                     margin: 0;
                 }
-                
+
                 .requirements-card li {
                     font-size: 1rem;
                     color: #f0e6d2;
@@ -2445,23 +2589,25 @@
                     display: flex;
                     align-items: center;
                 }
-                
+
                 .requirements-card strong {
                     color: #c49c48;
-                    width: 140px; /* Align text properly */
+                    width: 140px;
+                    /* Align text properly */
                 }
-                
+
                 .requirements-card ul li:last-child {
                     margin-bottom: 0;
                 }
-                
+
                 .requirements-card li::before {
-                    content: '\1F52B'; /* Icon representing war or a sword */
+                    content: '\1F52B';
+                    /* Icon representing war or a sword */
                     margin-right: 10px;
                     font-size: 1.2rem;
                     color: #c49c48;
                 }
-                
+
                 /* Responsive Design */
                 @media (max-width: 768px) {
                     .requirements-container {
@@ -2485,7 +2631,7 @@
                     <button class="chat-send-btn" id="send-btn">Send</button>
                 </div>
             </div>
-    
+
             <div class="chat-floating-btn moving-border" id="chat-btn">
                 <img src="https://c4.wallpaperflare.com/wallpaper/132/878/343/knight-video-games-armies-of-exigo-digital-art-wallpaper-preview.jpg"
                     alt="Chat Icon">
@@ -2509,12 +2655,12 @@
                     overflow: hidden;
                     z-index: 1000;
                 }
-    
+
                 .chat-window.open {
                     transform: translateY(0);
                     opacity: 1;
                 }
-    
+
                 .chat-header {
                     background-image: url('https://imgs.search.brave.com/QqDAX68QaImCAPCagL5g9V30_4SXgzWqrfrtmnQ98Do/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9tZWRp/YS50ZW5vci5jb20v/RXk5LVFKVThmcGdB/QUFBTS9hdGUlQzUl/OUYuZ2lm.gif');
                     background-size: cover;
@@ -2530,7 +2676,7 @@
                     border-top-left-radius: 15px;
                     border-top-right-radius: 15px;
                 }
-    
+
                 .chat-close-btn {
                     position: absolute;
                     right: 10px;
@@ -2547,7 +2693,7 @@
                     cursor: pointer;
                     font-size: 14px;
                 }
-    
+
                 .chat-body {
                     flex: 1;
                     padding: 10px;
@@ -2557,18 +2703,18 @@
                     opacity: 0.9;
                     overflow-y: auto;
                 }
-    
+
                 .chat-message {
                     margin-bottom: 10px;
                     display: flex;
                     align-items: flex-start;
                 }
-    
+
                 .chat-message.user {
                     justify-content: flex-end;
                     margin-right: 15px;
                 }
-    
+
                 .chat-message p {
                     background: #555;
                     padding: 8px;
@@ -2577,14 +2723,14 @@
                     max-width: 75%;
                     margin: 0;
                 }
-    
+
                 .chat-input-container {
                     display: flex;
                     border-top: 2px solid #ffab40;
                     padding: 8px;
                     background: #333;
                 }
-    
+
                 .chat-input {
                     flex: 1;
                     padding: 8px;
@@ -2594,7 +2740,7 @@
                     background: #1e1e1e;
                     color: #e0e0e0;
                 }
-    
+
                 .chat-send-btn {
                     background: #ffab40;
                     border: none;
@@ -2605,7 +2751,7 @@
                     margin-left: 8px;
                     font-size: 14px;
                 }
-    
+
                 .chat-floating-btn {
                     position: fixed;
                     bottom: 20px;
@@ -2619,23 +2765,23 @@
                     cursor: pointer;
                     z-index: 1001;
                 }
-    
+
                 .chat-floating-btn:hover {
                     scale: 1.1;
                 }
-    
+
                 .chat-floating-btn img {
                     width: 100%;
                     height: 100%;
                 }
-    
+
                 /* Thinking animation */
                 .thinking {
                     display: flex;
                     align-items: center;
                     justify-content: center;
                 }
-    
+
                 .thinking span {
                     display: inline-block;
                     width: 8px;
@@ -2645,22 +2791,22 @@
                     margin: 0 2px;
                     animation: thinking 1s infinite alternate;
                 }
-    
+
                 .thinking span:nth-child(2) {
                     animation-delay: 0.2s;
                 }
-    
+
                 .thinking span:nth-child(3) {
                     animation-delay: 0.4s;
                 }
-    
+
                 @keyframes thinking {
                     to {
                         transform: translateY(-10px);
                         opacity: 0.5;
                     }
                 }
-    
+
                 @media (max-width: 768px) {
                     .chat-window {
                         width: 70%;
@@ -2668,13 +2814,13 @@
                         bottom: 20%;
                         right: 10%;
                     }
-    
+
                     .chat-floating-btn {
                         width: 45px;
                         height: 45px;
                     }
                 }
-    
+
                 @media (max-width: 480px) {
                     .chat-window {
                         width: 70%;
@@ -2683,31 +2829,30 @@
                         right: 10%;
                         border-radius: 0;
                     }
-    
+
                     .chat-close-btn {
                         width: 18px;
                         height: 18px;
                         font-size: 12px;
                     }
-    
+
                     .chat-input-container {
                         padding: 6px;
                     }
-    
+
                     .chat-send-btn {
                         padding: 6px 10px;
                         margin-left: 6px;
                         font-size: 12px;
                     }
-    
+
                     .chat-floating-btn {
                         width: 40px;
                         height: 40px;
                     }
                 }
-                
             </style>
-    
+
             <script>
                 document.addEventListener('DOMContentLoaded', () => {
                     const chatBtn = document.getElementById('chat-btn');
@@ -2716,10 +2861,10 @@
                     const chatInput = document.getElementById('chat-input');
                     const sendBtn = document.getElementById('send-btn');
                     const chatCloseBtn = document.getElementById('chat-close-btn');
-    
+
                     let isGuessingGameActive = false;
                     let correctNumber = 0;
-    
+
                     function toggleChatWindow() {
                         chatWindow.classList.toggle('open');
                         if (chatWindow.classList.contains('open')) {
@@ -2727,7 +2872,7 @@
                             greetUser();
                         }
                     }
-    
+
                     function addMessage(type, text) {
                         const messageElement = document.createElement('div');
                         messageElement.classList.add('chat-message', type);
@@ -2736,19 +2881,19 @@
                         messageElement.appendChild(messageText);
                         chatBody.appendChild(messageElement);
                     }
-    
+
                     function greetUser() {
                         const greeting = "Greetings, noble warrior! I am Dandolf, at thy service. How may I assist thee in thy quest today? Here are some options:";
                         const options = "\n1. Explore the games\n2. View the leaderboard\n3. Contact us\n4. Play a guessing game\n5. Hear a jest";
                         addMessage('bot', greeting);
                         addMessage('bot', options);
                     }
-    
+
                     function getBotResponse(userMessage) {
                         if (isGuessingGameActive) {
                             return handleGuessingGame(userMessage);
                         }
-    
+
                         const responses = {
                             '1': 'Indeed, noble one! The games await thee. Visit the <a href="#">games section</a> to begin thy adventure.',
                             '2': 'Behold the leaderboard! The greatest warriors are listed here. <a href="#">View leaderboard</a>.',
@@ -2756,23 +2901,23 @@
                             '4': startGuessingGame(),
                             '5': 'Why did the warrior refuse to fight the skeleton? He had no guts!'
                         };
-    
+
                         return responses[userMessage] || "I art not sure what thou mean. Please choose an option from 1 to 5.";
                     }
-    
+
                     function startGuessingGame() {
                         correctNumber = Math.floor(Math.random() * 10) + 1;
                         isGuessingGameActive = true;
                         return 'Let us begin the guessing game! Guess a number between 1 and 10.';
                     }
-    
+
                     function handleGuessingGame(userMessage) {
                         const guessedNumber = parseInt(userMessage, 10);
-    
+
                         if (isNaN(guessedNumber)) {
                             return "That is not a number, noble warrior. Please guess a number between 1 and 10.";
                         }
-    
+
                         if (guessedNumber === correctNumber) {
                             isGuessingGameActive = false;
                             return `Congratulations! Thou hast guessed correctly. The number was ${correctNumber}. Wouldst thou like to play again?`;
@@ -2782,26 +2927,26 @@
                             return "Nay, the number is lower. Guess again!";
                         }
                     }
-    
+
                     function simulateThinking(callback) {
                         const thinkingElement = document.createElement('div');
                         thinkingElement.classList.add('chat-message', 'bot', 'thinking');
                         thinkingElement.innerHTML = '<span></span><span></span><span></span>';
                         chatBody.appendChild(thinkingElement);
                         chatBody.scrollTop = chatBody.scrollHeight;
-    
+
                         setTimeout(() => {
                             chatBody.removeChild(thinkingElement);
                             callback();
                         }, 2000);
                     }
-    
+
                     sendBtn.addEventListener('click', () => {
                         const userInput = chatInput.value.trim();
                         if (userInput !== '') {
                             addMessage('user', userInput);
                             chatInput.value = '';
-    
+
                             simulateThinking(() => {
                                 const botResponse = getBotResponse(userInput);
                                 addMessage('bot', botResponse);
@@ -2809,13 +2954,13 @@
                             });
                         }
                     });
-    
+
                     chatInput.addEventListener('keypress', (e) => {
                         if (e.key === 'Enter') {
                             sendBtn.click();
                         }
                     });
-    
+
                     chatBtn.addEventListener('click', toggleChatWindow);
                     chatCloseBtn.addEventListener('click', toggleChatWindow);
                 });
@@ -3056,12 +3201,6 @@
         </a>
         <section id="medieval-cookie-banner-section">
             <style>
-              
-        
-             
-        
-             
-        
                 #cookie-banner {
                     position: fixed;
                     bottom: 0;
@@ -3073,9 +3212,10 @@
                     padding: 20px;
                     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.5);
                     z-index: 1000;
-                    display: none; /* Hidden initially */
+                    display: none;
+                    /* Hidden initially */
                 }
-        
+
                 .medieval-banner-content {
                     display: flex;
                     flex-wrap: wrap;
@@ -3084,20 +3224,20 @@
                     max-width: 1200px;
                     margin: 0 auto;
                 }
-        
+
                 .medieval-banner-link {
                     color: white;
                     text-decoration: underline;
                     font-weight: bold;
                     cursor: pointer;
                 }
-        
+
                 .medieval-banner-buttons {
                     display: flex;
                     gap: 10px;
                     flex-shrink: 0;
                 }
-        
+
                 .medieval-banner-button {
                     padding: 10px 20px;
                     background-color: white;
@@ -3108,34 +3248,35 @@
                     transition: background-color 0.3s;
                     font-family: 'MedievalSharp', serif;
                 }
-        
+
                 .medieval-banner-button:hover {
                     background-color: black;
                     color: white;
                 }
-        
+
                 /* Responsive Styles */
                 @media (max-width: 768px) {
                     .cookie-banner .medieval-banner-content {
                         flex-direction: column;
                         align-items: flex-start;
                     }
-        
+
                     .medieval-banner-buttons {
                         margin-top: 10px;
                         justify-content: center;
                         width: 100%;
                     }
-        
+
                     .medieval-banner-button {
                         width: 100%;
                         text-align: center;
                     }
                 }
-        
+
                 /* Modal Styles */
                 #medieval-modal {
-                    display: none; /* Hidden initially */
+                    display: none;
+                    /* Hidden initially */
                     position: fixed;
                     top: 50%;
                     left: 50%;
@@ -3150,17 +3291,17 @@
                     color: black;
                     font-family: 'MedievalSharp', serif;
                 }
-        
+
                 .medieval-modal-header {
                     font-size: 1.5rem;
                     margin-bottom: 15px;
                 }
-        
+
                 .medieval-modal-body {
                     font-size: 1rem;
                     margin-bottom: 15px;
                 }
-        
+
                 .medieval-modal-close {
                     background-color: black;
                     border: 2px solid white;
@@ -3171,12 +3312,12 @@
                     float: right;
                     font-family: 'MedievalSharp', serif;
                 }
-        
+
                 .medieval-modal-close:hover {
                     background-color: white;
                     color: black;
                 }
-        
+
                 /* Overlay */
                 #medieval-overlay {
                     display: none;
@@ -3189,11 +3330,12 @@
                     z-index: 1500;
                 }
             </style>
-        
+
             <div id="cookie-banner" class="cookie-banner">
                 <div class="medieval-banner-content">
                     <p>
-                        We use cookies to enhance your royal experience. By continuing to use this site, you consent to our
+                        We use cookies to enhance your royal experience. By continuing to use this site, you consent to
+                        our
                         <span id="terms-link" class="medieval-banner-link">Terms of Service</span> and
                         <span id="privacy-link" class="medieval-banner-link">Privacy Policy</span>.
                     </p>
@@ -3203,20 +3345,21 @@
                     </div>
                 </div>
             </div>
-        
+
             <!-- Modal -->
             <div id="medieval-modal" class="modal">
                 <div class="medieval-modal-header">Terms and Conditions</div>
                 <div class="medieval-modal-body">
-                    <p>Your terms and conditions go here. You can list your policies, rules, and more information for users.</p>
+                    <p>Your terms and conditions go here. You can list your policies, rules, and more information for
+                        users.</p>
                     <p>Include details about cookies, user data, privacy policies, etc.</p>
                 </div>
                 <button id="close-medieval-modal" class="medieval-modal-close">Close</button>
             </div>
-        
+
             <!-- Overlay -->
             <div id="medieval-overlay"></div>
-        
+
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     const banner = document.getElementById('cookie-banner');
@@ -3226,31 +3369,31 @@
                     const termsModal = document.getElementById('medieval-modal');
                     const overlay = document.getElementById('medieval-overlay');
                     const closeModalBtn = document.getElementById('close-medieval-modal');
-        
+
                     // Always show banner if cookies are not accepted
                     if (!localStorage.getItem('cookiesAccepted')) {
                         banner.style.display = 'block';
                     }
-        
+
                     acceptBtn.addEventListener('click', function () {
                         localStorage.setItem('cookiesAccepted', 'true');
                         banner.style.display = 'none';
                     });
-        
+
                     closeBannerBtn.addEventListener('click', function () {
                         banner.style.display = 'none';
                     });
-        
+
                     termsLink.addEventListener('click', function () {
                         termsModal.style.display = 'block';
                         overlay.style.display = 'block';
                     });
-        
+
                     closeModalBtn.addEventListener('click', function () {
                         termsModal.style.display = 'none';
                         overlay.style.display = 'none';
                     });
-        
+
                     overlay.addEventListener('click', function () {
                         termsModal.style.display = 'none';
                         overlay.style.display = 'none';

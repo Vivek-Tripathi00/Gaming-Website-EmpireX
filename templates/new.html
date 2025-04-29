@@ -3,178 +3,252 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community Chat</title>
+    <title>Global Battle Channels</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Open+Sans:wght@300;600&display=swap" rel="stylesheet">
     <style>
-        /* Global Styles */
+        /* Reset and Global Styles */
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
+            font-family: 'Roboto', sans-serif;
+            background: #f4f4f9;
         }
 
-        /* Chat Container Styles */
-        #chat_menu_section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .chat-container {
-            width: 100%;
-            max-width: 600px;
-            background: #fff;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
+        /* Container Styles */
+        .forum-container {
+            padding: 40px;
+            background: url('https://cdn.pixabay.com/photo/2023/03/09/07/57/fire-7839458_1280.jpg') no-repeat center center;
+            background-size: cover;
+            border-radius: 12px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+            color: #fafafa;
+            border: 3px solid rgba(255, 215, 0, 0.8);
+            background-attachment: fixed;
+            
+            margin: 0 auto;
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 80vh;
         }
 
-        .chat-header {
-            background-color: #007bff;
-            color: #fff;
-            padding: 15px;
+        .forum-heading {
             text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            border-bottom: 2px solid #0056b3;
+            font-size: 2em;
+            font-family: 'Open Sans', sans-serif;
+            color: #ffeb3b;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+            margin-bottom: 40px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            animation: fadeInDown 1s ease-in-out;
         }
 
-        #chat {
-            flex: 1;
-            overflow-y: auto;
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-bottom: 1px solid #eee;
-            word-wrap: break-word;
+        .region {
+            margin-bottom: 50px;
+        }
+
+        .region-title {
+            font-size: 1.3em;
+            font-family: 'Open Sans', sans-serif;
+            color: white;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.8);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            position: relative;
+            animation: fadeInDown 1s ease-in-out;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
+        }
+
+        .country {
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid rgba(255, 215, 0, 0.6);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.4s ease-in-out;
         }
 
-        #chat p {
-            margin: 10px 0;
-            padding: 10px;
-            background: #e9ecef;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            word-wrap: break-word;
-            max-width: 80%;
+        .country:hover {
+            background: rgba(0, 0, 0, 0.9);
+            transform: scale(1.03);
+        }
+
+        .country-info {
             display: flex;
             align-items: center;
         }
 
-        #chat p strong {
-            color: #007bff;
-            margin-right: 10px;
+        .country-flag {
+            width: 80px;
+            height: auto;
+            margin-right: 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease-in-out;
         }
 
-        #chat p .timestamp {
-            font-size: 0.75rem;
-            color: #888;
-            margin-left: auto;
-        }
-
-        /* Message Form Styles */
-        #message-form {
+        .country-details {
             display: flex;
-            padding: 10px;
-            background-color: #fff;
-            border-top: 1px solid #eee;
+            flex-direction: column;
         }
 
-        #user, #message {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 1rem;
+        .country-name {
+            font-size: 1em;
+            font-weight: bold;
+            color: #ffeb3b;
+            text-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
         }
 
-        #user {
-            width: 30%;
-            margin-right: 10px;
+        .active-members {
+            font-size: 0.9em;
+            color: #e0e0e0;
+            margin-top: 8px;
         }
 
-        #message {
-            flex: 1;
-        }
-
-        #message-form button {
-            padding: 10px 15px;
-            margin-left: 10px;
-            background-color: #007bff;
+        .join-btn {
+            background: linear-gradient(45deg, #ff6f61, #d84315);
+            color: white;
+            padding: 15px 35px;
             border: none;
-            color: #fff;
-            font-size: 1rem;
-            border-radius: 5px;
+            border-radius: 8px;
+            font-size: 1.1em;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: all 0.4s ease-in-out;
         }
 
-        #message-form button:hover {
-            background-color: #0056b3;
+        .join-btn:hover {
+            background: linear-gradient(45deg, #e64a19, #c62828);
+            transform: translateY(-2px);
         }
 
-        /* Typing Indicator Styles */
-        #typing-indicator {
-            font-style: italic;
-            color: #777;
-            margin: 10px 15px;
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .country {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .join-btn {
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            .country-flag {
+                width: 60px;
+                margin-bottom: 10px;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-    <section id="chat_menu_section">
-        <div class="chat-container">
-            <div class="chat-header">
-                Community Chat
+    <section>
+        <!-- HTML Structure -->
+        <div class="forum-container">
+            <h2 class="forum-heading">Global Battle Channels</h2>
+
+            <!-- Region Section -->
+            <div class="region">
+                <h3 class="region-title">The Eastern Empire</h3>
+                <div class="country">
+                    <div class="country-info">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India Flag" class="country-flag">
+                        <div class="country-details">
+                            <span class="country-name">India</span>
+                            <span class="active-members">     <div id="chat-users-count">Loading...</div></span>
+                        </div>
+                    </div>
+                    <button class="join-btn">Join the Battle</button>
+                </div>
+                <div class="country">
+                    <div class="country-info">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/9/9e/Flag_of_Japan.svg" alt="Japan Flag" class="country-flag">
+                        <div class="country-details">
+                            <span class="country-name">Japan</span>
+                            <span class="active-members">Active Warriors: 15,758</span>
+                        </div>
+                    </div>
+                    <button class="join-btn">Join the Battle</button>
+                </div>
             </div>
-            <div id="chat"></div>
-            <div id="typing-indicator"></div>
-            <form id="message-form">
-                <input type="text" id="user" placeholder="Username" required>
-                <input type="text" id="message" placeholder="Type your message..." required>
-                <button type="submit">Send</button>
-            </form>
+        
+        
+            <script>
+                function updateChatUsersCount() {
+                    fetch('/chat_users')
+                        .then(response => response.json())
+                        .then(data => {
+                            document.getElementById('chat-users-count').innerText = `${data.count} users online`;
+                        })
+                        .catch(error => {
+                            console.error('Error fetching chat users count:', error);
+                            document.getElementById('chat-users-count').innerText = 'Error loading count';
+                        });
+                }
+        
+                // Update the user count every 10 seconds
+                updateChatUsersCount();
+                setInterval(updateChatUsersCount, 10000);
+            </script>
+
+            <!-- Another Region Section -->
+            <div class="region">
+                <h3 class="region-title">The Western Kingdom</h3>
+                <div class="country">
+                    <div class="country-info">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg" alt="Germany Flag" class="country-flag">
+                        <div class="country-details">
+                            <span class="country-name">Germany</span>
+                            <span class="active-members">Active Warriors: 9,952</span>
+                        </div>
+                    </div>
+                    <button class="join-btn">Join the Battle</button>
+                </div>
+                <div class="country">
+                    <div class="country-info">
+                        <img src="https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg" alt="France Flag" class="country-flag">
+                        <div class="country-details">
+                            <span class="country-name">France</span>
+                            <span class="active-members">Active Warriors: 17,100</span>
+                        </div>
+                    </div>
+                    <button class="join-btn">Join the Battle</button>
+                </div>
+            </div>
         </div>
+
+        <!-- JavaScript Functionality -->
+        <script>
+            document.querySelectorAll('.join-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    const country = this.previousElementSibling.querySelector('.country-name').textContent;
+                    alert('You have pledged allegiance to ' + country + ' warriors!');
+                });
+            });
+        const connectedUsers = document.getElementById('connected-users');
+
+              // Emit event when the user connects
+        socket.emit('userConnected');
+
+        // Emit event when the user disconnects
+        window.addEventListener('beforeunload', () => {
+            socket.emit('userDisconnected');
+        });
+        </script>
+        <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
     </section>
-
-    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
-    <script>
-        const socket = io();
-        const chat = document.getElementById('chat');
-
-        socket.on('response', function(data) {
-            const timestamp = new Date().toLocaleTimeString();
-            chat.innerHTML += `<p><strong>${data.user}:</strong> ${data.message} <span class="timestamp">${timestamp}</span></p>`;
-            chat.scrollTop = chat.scrollHeight; // Auto-scroll to the bottom
-        });
-
-        socket.on('typing', function(user) {
-            document.getElementById('typing-indicator').innerText = `${user} is typing...`;
-            setTimeout(() => {
-                document.getElementById('typing-indicator').innerText = '';
-            }, 3000);
-        });
-
-        document.getElementById('message-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const user = document.getElementById('user').value;
-            const message = document.getElementById('message').value;
-            if (user && message) {
-                socket.send({user: user, message: message});
-                document.getElementById('message').value = ''; // Clear input
-            }
-        });
-
-        document.getElementById('message').addEventListener('input', function() {
-            const user = document.getElementById('user').value;
-            if (user) {
-                socket.emit('typing', user);
-            }
-        });
-    </script>
 </body>
 </html>
