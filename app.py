@@ -8,32 +8,21 @@ from flask_login import LoginManager, UserMixin, login_user, current_user, logou
 from flask_mail import Mail, Message
 import paypalrestsdk
 from dotenv import load_dotenv
-import psycopg2  # Added for PostgreSQL support
 
 # Initialize Flask application
 app = Flask(__name__)
 load_dotenv()
 
 # ============================================
-# Configuration (Railway-Specific Changes)
+# Configuration
 # ============================================
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'your_secret_key')
-
-# Database configuration for Railway (PostgreSQL)
-DATABASE_URL = os.getenv('DATABASE_URL')
-if DATABASE_URL and DATABASE_URL.startswith("postgres://"):
-    DATABASE_URL = DATABASE_URL.replace("postgres://", "postgresql://", 1)
-
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL or 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# File upload configuration
 app.config['UPLOAD_FOLDER'] = 'static/'
-
-# Email configuration
-app.config['MAIL_SERVER'] = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
-app.config['MAIL_PORT'] = int(os.getenv('MAIL_PORT', 587))
-app.config['MAIL_USE_TLS'] = os.getenv('MAIL_USE_TLS', 'true').lower() == 'true'
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USERNAME'] = os.getenv('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.getenv('MAIL_PASSWORD')
 app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_USERNAME')
@@ -43,7 +32,7 @@ app.config['MAIL_DEFAULT_SENDER'] = os.getenv('MAIL_USERNAME')
 # ============================================
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
-socketio = SocketIO(app, cors_allowed_origins="*")  # Added CORS support
+socketio = SocketIO(app)
 mail = Mail(app)
 
 # Flask-Login setup
@@ -52,7 +41,7 @@ login_manager.login_view = 'login'
 
 # PayPal configuration
 paypalrestsdk.configure({
-    "mode": os.getenv('PAYPAL_MODE', 'sandbox'),
+    "mode": "sandbox",
     "client_id": os.getenv('PAYPAL_CLIENT_ID'),
     "client_secret": os.getenv('PAYPAL_CLIENT_SECRET')
 })
@@ -549,17 +538,7 @@ def send_confirmation_email_for_newsletter(email):
 # ============================================
 # Application Entry Point
 # ============================================
-def create_tables():
-    with app.app_context():
-        try:
-            db.create_all()
-            print("Database tables created successfully")
-        except Exception as e:
-            print(f"Error creating database tables: {str(e)}")
-
 if __name__ == "__main__":
-    create_tables()
-    port = int(os.environ.get("PORT", 5000))
-    socketio.run(app, host='0.0.0.0', port=port)
-else:
-    create_tables()
+    with app.app_context():
+        db.create_all()
+    socketio.run(app, host='0.0.0.0', port=5000, debug=True, allow_unsafe_werkzeug=True)
